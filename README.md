@@ -21,13 +21,13 @@ Given image path and logo name, the "get_result" function in "obj_detect.py" wil
 Put "obj_detect.py" in the same path with the "support" folder. Then import the python file and call "get_result" function.
 
 **Sample:** In python, use:  
-	res = get_result("subway", "support/test_img/test.jpg")
+	* res = get_result("subway", "support/test_img/test.jpg")
 
-# "subway" is logo name, the second arg is image's path
+- "subway" is logo name, the second arg is image's path
 
-# The returned string will be stored in "res":
-	* If the program returns correctly, "res" will be like "logo_left/logo_right/image_width".
-	* If something goes wrong, "res" will be "ERROR"
+- The returned string will be stored in "res":
+	- If the program returns correctly, "res" will be like "logo_left/logo_right/image_width".
+	- If something goes wrong, "res" will be "ERROR"
 
 ##Next step
 An confidence score will be given to help eliminating false positives.
