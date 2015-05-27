@@ -2,7 +2,7 @@
 Version: 2.0
 
 ##Requirements
-**OS:** Linux (Ubuntu 14.04 is recommended) 
+**OS:** Linux (Ubuntu 14.04 is recommended)   
 **Environment:**  
 - OpenCV
 - Python
