@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+project( obj_detect_show_img )
+find_package( OpenCV REQUIRED )
+add_executable( obj_detect_show_img obj_detect_show_img.cpp )
+target_link_libraries( obj_detect_show_img ${OpenCV_LIBS} )
