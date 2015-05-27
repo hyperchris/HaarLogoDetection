@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/chris/Desktop/Share/obj_detect/support
+CMAKE_SOURCE_DIR = /home/chris/Desktop/Share/LogoDetection/support
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/chris/Desktop/Share/obj_detect/support
+CMAKE_BINARY_DIR = /home/chris/Desktop/Share/LogoDetection/support
 
 # Include any dependencies generated for this target.
 include CMakeFiles/obj_detect.dir/depend.make
@@ -51,17 +51,17 @@ include CMakeFiles/obj_detect.dir/flags.make
 
 CMakeFiles/obj_detect.dir/obj_detect.cpp.o: CMakeFiles/obj_detect.dir/flags.make
 CMakeFiles/obj_detect.dir/obj_detect.cpp.o: obj_detect.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/chris/Desktop/Share/obj_detect/support/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/chris/Desktop/Share/LogoDetection/support/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/obj_detect.dir/obj_detect.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/obj_detect.dir/obj_detect.cpp.o -c /home/chris/Desktop/Share/obj_detect/support/obj_detect.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/obj_detect.dir/obj_detect.cpp.o -c /home/chris/Desktop/Share/LogoDetection/support/obj_detect.cpp
 
 CMakeFiles/obj_detect.dir/obj_detect.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/obj_detect.dir/obj_detect.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/chris/Desktop/Share/obj_detect/support/obj_detect.cpp > CMakeFiles/obj_detect.dir/obj_detect.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/chris/Desktop/Share/LogoDetection/support/obj_detect.cpp > CMakeFiles/obj_detect.dir/obj_detect.cpp.i
 
 CMakeFiles/obj_detect.dir/obj_detect.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/obj_detect.dir/obj_detect.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/chris/Desktop/Share/obj_detect/support/obj_detect.cpp -o CMakeFiles/obj_detect.dir/obj_detect.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/chris/Desktop/Share/LogoDetection/support/obj_detect.cpp -o CMakeFiles/obj_detect.dir/obj_detect.cpp.s
 
 CMakeFiles/obj_detect.dir/obj_detect.cpp.o.requires:
 .PHONY : CMakeFiles/obj_detect.dir/obj_detect.cpp.o.requires
@@ -136,6 +136,6 @@ CMakeFiles/obj_detect.dir/clean:
 .PHONY : CMakeFiles/obj_detect.dir/clean
 
 CMakeFiles/obj_detect.dir/depend:
-	cd /home/chris/Desktop/Share/obj_detect/support && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/chris/Desktop/Share/obj_detect/support /home/chris/Desktop/Share/obj_detect/support /home/chris/Desktop/Share/obj_detect/support /home/chris/Desktop/Share/obj_detect/support /home/chris/Desktop/Share/obj_detect/support/CMakeFiles/obj_detect.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/chris/Desktop/Share/LogoDetection/support && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/chris/Desktop/Share/LogoDetection/support /home/chris/Desktop/Share/LogoDetection/support /home/chris/Desktop/Share/LogoDetection/support /home/chris/Desktop/Share/LogoDetection/support /home/chris/Desktop/Share/LogoDetection/support/CMakeFiles/obj_detect.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/obj_detect.dir/depend
 

@@ -4,7 +4,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/chris/Desktop/Share/obj_detect/support/obj_detect.cpp" "/home/chris/Desktop/Share/obj_detect/support/CMakeFiles/obj_detect.dir/obj_detect.cpp.o"
+  "/home/chris/Desktop/Share/LogoDetection/support/obj_detect.cpp" "/home/chris/Desktop/Share/LogoDetection/support/CMakeFiles/obj_detect.dir/obj_detect.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 

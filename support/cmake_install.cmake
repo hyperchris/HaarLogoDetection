@@ -1,4 +1,4 @@
-# Install script for directory: /home/chris/Desktop/Share/obj_detect/support
+# Install script for directory: /home/chris/Desktop/Share/LogoDetection/support
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/home/chris/Desktop/Share/obj_detect/support/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/home/chris/Desktop/Share/LogoDetection/support/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/home/chris/Desktop/Share/obj_detect/support/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/home/chris/Desktop/Share/LogoDetection/support/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)

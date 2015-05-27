@@ -47,10 +47,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/chris/Desktop/Share/obj_detect/support
+CMAKE_SOURCE_DIR = /home/chris/Desktop/Share/LogoDetection/support
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/chris/Desktop/Share/obj_detect/support
+CMAKE_BINARY_DIR = /home/chris/Desktop/Share/LogoDetection/support
 
 #=============================================================================
 # Target rules for target CMakeFiles/obj_detect.dir
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/chris/Desktop/Share/obj_detect/support
 CMakeFiles/obj_detect.dir/all:
 	$(MAKE) -f CMakeFiles/obj_detect.dir/build.make CMakeFiles/obj_detect.dir/depend
 	$(MAKE) -f CMakeFiles/obj_detect.dir/build.make CMakeFiles/obj_detect.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/chris/Desktop/Share/obj_detect/support/CMakeFiles  1
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/chris/Desktop/Share/LogoDetection/support/CMakeFiles  1
 	@echo "Built target obj_detect"
 .PHONY : CMakeFiles/obj_detect.dir/all
 
@@ -69,9 +69,9 @@ all: CMakeFiles/obj_detect.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/obj_detect.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/chris/Desktop/Share/obj_detect/support/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/chris/Desktop/Share/LogoDetection/support/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/obj_detect.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/chris/Desktop/Share/obj_detect/support/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/chris/Desktop/Share/LogoDetection/support/CMakeFiles 0
 .PHONY : CMakeFiles/obj_detect.dir/rule
 
 # Convenience name for target.

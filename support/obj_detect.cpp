@@ -35,9 +35,11 @@ struct coordinate {
 	int x_right;
 };
 
-coordinate detectAndDraw( Mat& img, CascadeClassifier& cascade,
+coordinate detectObj(Mat& img, CascadeClassifier& cascade,
                     CascadeClassifier& nestedCascade,
-                    double scale, bool tryflip );
+                    double scale);
+void showImage(Mat& img, vector<Rect> detected_object, double scale, bool show);
+void calRoundNum(Mat& img, vector<Rect> detected_object);
 
 string cascadeName = "../../data/haarcascades/haarcascade_frontalface_alt.xml";
 string nestedCascadeName = "../../data/haarcascades/haarcascade_eye_tree_eyeglasses.xml";
@@ -51,10 +53,7 @@ int main(int argc, const char** argv) {
 	size_t cascadeOptLen = cascadeOpt.length();
 	const string nestedCascadeOpt = "--nested-cascade";
 	size_t nestedCascadeOptLen = nestedCascadeOpt.length();
-	const string tryFlipOpt = "--try-flip";
-	size_t tryFlipOptLen = tryFlipOpt.length();
 	string inputName;
-	bool tryflip = false;
 
 	CascadeClassifier cascade, nestedCascade;
 	double scale = 1;
@@ -69,10 +68,6 @@ int main(int argc, const char** argv) {
 			if( !sscanf( argv[i] + scaleOpt.length(), "%lf", &scale ) || scale < 1 )
 				scale = 1;
 			cout << " from which we read scale = " << scale << endl;
-		}
-		else if( tryFlipOpt.compare( 0, tryFlipOptLen, argv[i], tryFlipOptLen ) == 0 ) { // read whether the image should be flipped
-			tryflip = true;
-			cout << " will try to flip image horizontally to detect assymetric objects\n";
 		}
 		else if( argv[i][0] == '-' ) { // wrong input format
 		    	cerr << "WARNING: Unknown option %s" << argv[i] << endl;
@@ -99,16 +94,16 @@ int main(int argc, const char** argv) {
 		return -1;
 	}
 	
-	coordinate ret_val = detectAndDraw(image, cascade, nestedCascade, scale, tryflip); // detect and draw
+	coordinate ret_val = detectObj(image, cascade, nestedCascade, scale); // detect and draw
     	
     cout << "RESULT: " << ret_val.x_left << SPLITTER << ret_val.x_right << SPLITTER << image.cols << endl; // print the result
     	
     return 0;
 }
 
-coordinate detectAndDraw( Mat& img, CascadeClassifier& cascade,
+coordinate detectObj( Mat& img, CascadeClassifier& cascade,
                     CascadeClassifier& nestedCascade,
-                    double scale, bool tryflip )
+                    double scale)
 {
 	double t = (double)cvGetTickCount(); // count the procesing time
 	
@@ -156,6 +151,9 @@ coordinate detectAndDraw( Mat& img, CascadeClassifier& cascade,
     t = (double)cvGetTickCount() - t;
     printf("detection time = %g ms\n", t/((double)cvGetTickFrequency()*1000.)); // print processing time
     	
+	showImage(img, detected_object, scale, true);		// display the detection result
+	calRoundNum(img, detected_object);			// calculate cropping round #
+
     coordinate ret_val = {0, 0};
     if ((int)detected_object.size() == 1) { // 1 return
 		vector<Rect>::const_iterator r = detected_object.begin();
@@ -169,3 +167,42 @@ coordinate detectAndDraw( Mat& img, CascadeClassifier& cascade,
     		
     return ret_val;
 }
+
+void showImage (Mat& img, vector<Rect> detected_object, double scale, bool show) {
+	if (!show) {
+		return;
+	}		
+
+	const static Scalar colors[] = { CV_RGB(0,0,255),		// colors of rectangles
+					CV_RGB(0,128,255),
+					CV_RGB(0,255,255),
+					CV_RGB(0,255,0),
+					CV_RGB(255,128,0),
+					CV_RGB(255,255,0),
+					CV_RGB(255,0,0),
+					CV_RGB(255,0,255)};
+
+	int i = 0;
+	for( vector<Rect>::const_iterator r = detected_object.begin(); r != detected_object.end(); r++, i++ ) {
+		Point center;
+		Scalar color = colors[i%8];
+
+		rectangle( img, 	// draw rectangle
+			cvPoint(cvRound(r->x * scale), 
+			cvRound(r->y * scale)),
+			cvPoint(cvRound((r->x + r->width - 1) * scale), 
+			cvRound((r->y + r->height - 1) * scale)), color, 3, 8, 0);
+	}
+    
+    cvNamedWindow("result", 1);
+	cv::imshow( "result", img ); // show the image
+
+	waitKey(0);
+    cvDestroyWindow("result");	// return
+
+    return;
+}
+
+void calRoundNum(Mat& img, vector<Rect> detected_object) {
+	return;
+};
