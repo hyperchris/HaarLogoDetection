@@ -1,1 +1,0 @@
-/mnt/Share/obj_detect/show_img/CMakeFiles/obj_detect_show_img.dir

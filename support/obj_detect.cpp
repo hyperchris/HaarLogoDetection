@@ -32,34 +32,31 @@ using namespace cv;
 #define RESULT_HEADER "RESULT: "
 #define ERROR_HEADER "ERROR: "
 
+string cascadeName = "../cascade/subway.xml";
+
 struct coordinate {
 	int x_left;
 	int x_right;
 	int conf;
 };
 
-coordinate detectObj(Mat& img, CascadeClassifier& cascade,
-                    CascadeClassifier& nestedCascade,
-                    double scale);
-void showImage(Mat& img, vector<Rect> detected_object, double scale, bool show);
+coordinate detectObj(Mat& img, CascadeClassifier& cascade, double scale, int display);
+void showImage(Mat& img, vector<Rect> detected_object, double scale, int display);
 int calConfScore(Mat& img, vector<Rect> detected_object);
 
-string cascadeName = "../../data/haarcascades/haarcascade_frontalface_alt.xml";
-string nestedCascadeName = "../../data/haarcascades/haarcascade_eye_tree_eyeglasses.xml";
-
 int main(int argc, const char** argv) {
-	CvCapture* capture = 0;
-	Mat frame, frameCopy, image;
 	const string scaleOpt = "--scale=";
 	size_t scaleOptLen = scaleOpt.length();
 	const string cascadeOpt = "--cascade=";
 	size_t cascadeOptLen = cascadeOpt.length();
-	const string nestedCascadeOpt = "--nested-cascade";
-	size_t nestedCascadeOptLen = nestedCascadeOpt.length();
-	string inputName;
+	const string displayOpt = "--display=";
+	size_t displayOptLen = cascadeOpt.length();
 
-	CascadeClassifier cascade, nestedCascade;
+	Mat image;
+	string inputName;
+	CascadeClassifier cascade;
 	double scale = 1;
+	int display = 0;
 
     for( int i = 1; i < argc; i++ ) { // get inputs
 		cout << "Processing " << i << " " <<  argv[i] << endl;
@@ -72,6 +69,11 @@ int main(int argc, const char** argv) {
 				scale = 1;
 			cout << " from which we read scale = " << scale << endl;
 		}
+		else if( displayOpt.compare( 0, displayOptLen, argv[i], displayOptLen ) == 0 ) { // read the Display_or_not option
+			if( !sscanf( argv[i] + displayOpt.length(), "%d", &display ) || !(display == 0 || display == 1))
+				display = 0;
+			cout << " from which we read display = " << display << endl;
+		}
 		else if( argv[i][0] == '-' ) { // wrong input format
 		    	cerr << "WARNING: Unknown option %s" << argv[i] << endl;
 		}
@@ -79,7 +81,7 @@ int main(int argc, const char** argv) {
 		    inputName.assign( argv[i] ); // image name 
     	}
 
-	if( !cascade.load( cascadeName ) ) { // handle  the error cascade
+	if( !cascade.load( cascadeName ) ) { // handle the error cascade
 		cerr << ERROR_HEADER << "Could not load classifier cascade" << endl;
 		return -1;
 	}
@@ -97,17 +99,14 @@ int main(int argc, const char** argv) {
 		return -1;
 	}
 	
-	coordinate ret_val = detectObj(image, cascade, nestedCascade, scale); // detect and draw
+	coordinate ret_val = detectObj(image, cascade, scale, display); // detect the object
     	
     cout << RESULT_HEADER << ret_val.x_left << SPLITTER << ret_val.x_right << SPLITTER << image.cols << SPLITTER << ret_val.conf << endl; // print the result
     	
     return 0;
 }
 
-coordinate detectObj( Mat& img, CascadeClassifier& cascade,
-                    CascadeClassifier& nestedCascade,
-                    double scale)
-{
+coordinate detectObj ( Mat& img, CascadeClassifier& cascade, double scale, int display) {
 	double t = (double)cvGetTickCount(); // count the procesing time
 	
 	vector<Rect> detected_object; // detected object
@@ -154,7 +153,7 @@ coordinate detectObj( Mat& img, CascadeClassifier& cascade,
     t = (double)cvGetTickCount() - t;
     printf("detection time = %g ms\n", t/((double)cvGetTickFrequency()*1000.)); // print processing time
     	
-	showImage(img, detected_object, scale, true);		// display the detection result
+	showImage(img, detected_object, scale, display);		// display the detection result
 
     coordinate ret_val = {0, 0, 0};
     if ((int)detected_object.size() == 1) { // 1 return
@@ -171,8 +170,8 @@ coordinate detectObj( Mat& img, CascadeClassifier& cascade,
     return ret_val;
 }
 
-void showImage (Mat& img, vector<Rect> detected_object, double scale, bool show) {
-	if (!show) {
+void showImage (Mat& img, vector<Rect> detected_object, double scale, int display) {
+	if (display != 1) {
 		return;
 	}		
 
