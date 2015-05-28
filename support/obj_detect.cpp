@@ -29,17 +29,20 @@ using namespace cv;
 
 #define ERROR -1
 #define SPLITTER '/'
+#define RESULT_HEADER "RESULT: "
+#define ERROR_HEADER "ERROR: "
 
 struct coordinate {
 	int x_left;
 	int x_right;
+	int conf;
 };
 
 coordinate detectObj(Mat& img, CascadeClassifier& cascade,
                     CascadeClassifier& nestedCascade,
                     double scale);
 void showImage(Mat& img, vector<Rect> detected_object, double scale, bool show);
-void calRoundNum(Mat& img, vector<Rect> detected_object);
+int calConfScore(Mat& img, vector<Rect> detected_object);
 
 string cascadeName = "../../data/haarcascades/haarcascade_frontalface_alt.xml";
 string nestedCascadeName = "../../data/haarcascades/haarcascade_eye_tree_eyeglasses.xml";
@@ -77,26 +80,26 @@ int main(int argc, const char** argv) {
     	}
 
 	if( !cascade.load( cascadeName ) ) { // handle  the error cascade
-		cerr << "ERROR: Could not load classifier cascade" << endl;
+		cerr << ERROR_HEADER << "Could not load classifier cascade" << endl;
 		return -1;
 	}
 
 	if( inputName.size() ) { // read in the image
 		image = imread( inputName, 1 );
 		if( image.empty() ) {
-			cout << "ERRROR: input image is empty!" << endl;
+			cout << ERROR_HEADER << "input image is empty!" << endl;
 			return -1;
 		}
 		cout << "SUCCESS: In image read" << endl;
 	}
 	else {
-		cout << "ERROR: Couldn't no input image name" << endl;
+		cout << ERROR_HEADER << "Couldn't no input image name" << endl;
 		return -1;
 	}
 	
 	coordinate ret_val = detectObj(image, cascade, nestedCascade, scale); // detect and draw
     	
-    cout << "RESULT: " << ret_val.x_left << SPLITTER << ret_val.x_right << SPLITTER << image.cols << endl; // print the result
+    cout << RESULT_HEADER << ret_val.x_left << SPLITTER << ret_val.x_right << SPLITTER << image.cols << SPLITTER << ret_val.conf << endl; // print the result
     	
     return 0;
 }
@@ -152,13 +155,13 @@ coordinate detectObj( Mat& img, CascadeClassifier& cascade,
     printf("detection time = %g ms\n", t/((double)cvGetTickFrequency()*1000.)); // print processing time
     	
 	showImage(img, detected_object, scale, true);		// display the detection result
-	calRoundNum(img, detected_object);			// calculate cropping round #
 
-    coordinate ret_val = {0, 0};
+    coordinate ret_val = {0, 0, 0};
     if ((int)detected_object.size() == 1) { // 1 return
 		vector<Rect>::const_iterator r = detected_object.begin();
 		ret_val.x_left = (int)(r->x * scale);
 		ret_val.x_right = (int)((r->x + r->width - 1) * scale);
+		ret_val.conf = calConfScore(img, detected_object);			// calculate conf score
 	}
 	else if ((int)detected_object.size() > 1) { // error (more than one detected)
 		ret_val.x_left = ERROR;
@@ -203,6 +206,6 @@ void showImage (Mat& img, vector<Rect> detected_object, double scale, bool show)
     return;
 }
 
-void calRoundNum(Mat& img, vector<Rect> detected_object) {
-	return;
+int calConfScore(Mat& img, vector<Rect> detected_object) {
+	return 0;
 };
