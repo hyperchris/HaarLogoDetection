@@ -32,5 +32,5 @@ def get_result(logo_name, image_path, show_img):
 		return ERROR_MSG
 
 if __name__ == '__main__':
-	res = get_result("subway", "images/subway/good/1.jpg", 0)
+	res = get_result("subway", "images/subway/good/3456.jpg", 1)
 	print "done"

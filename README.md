@@ -28,7 +28,7 @@ Put "obj_detect.py" in the same path with the "support" folder. Then import the 
 	- 1 means show the detection result; 0 means do not show the result (Displaying the result will block the get_result function and need PRESS_ANY_KEY to continue) 
 
 - The returned string will be stored in "res":
-	- If the program returns correctly, "res" will be like **"logo_left/logo_right/image_width/thres/conf_score"**.
+	- If the program returns correctly, "res" will be like **"logo_left / logo_right / image_width / threshold / conf_score"**.
 	- If something goes wrong, "res" will be "ERROR"
 
 ##Define the confidence score
