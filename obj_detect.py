@@ -5,7 +5,7 @@
  
  Function: 	Given image path and logo name, the "get_result" will return 
  		the x-coordinate of the two boudaries of detected logo and 
- 		the image width
+ 		the image width as well as the threshold and the round #
  
  Usage: 	Put this python file in the same path with the "support" folder. 
  		Then import the python file and call "get_result" function 
@@ -30,7 +30,7 @@ def get_result(logo_name, image_path, show_img):
 	
 	if found == False:
 		return ERROR_MSG
-		
+
 if __name__ == '__main__':
-	res = get_result("subway", "images/subway/good/1.jpg", 1)
+	res = get_result("subway", "images/subway/good/1.jpg", 0)
 	print "done"

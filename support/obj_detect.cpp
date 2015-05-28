@@ -31,18 +31,21 @@ using namespace cv;
 #define SPLITTER '/'
 #define RESULT_HEADER "RESULT: "
 #define ERROR_HEADER "ERROR: "
+#define MARGIN 10
 
 string cascadeName = "../cascade/subway.xml";
 
 struct coordinate {
 	int x_left;
 	int x_right;
+	int thres;
 	int conf;
 };
 
 coordinate detectObj(Mat& img, CascadeClassifier& cascade, double scale, int display);
 void showImage(Mat& img, vector<Rect> detected_object, double scale, int display);
-int calConfScore(Mat& img, vector<Rect> detected_object);
+int calConfScore(Mat& img, CascadeClassifier& cascade, vector<Rect> detected_object);
+cv::Rect getCroppingRec (Mat& img, int x, int y, int width, int height);
 
 int main(int argc, const char** argv) {
 	const string scaleOpt = "--scale=";
@@ -101,12 +104,14 @@ int main(int argc, const char** argv) {
 	
 	coordinate ret_val = detectObj(image, cascade, scale, display); // detect the object
     	
-    cout << RESULT_HEADER << ret_val.x_left << SPLITTER << ret_val.x_right << SPLITTER << image.cols << SPLITTER << ret_val.conf << endl; // print the result
+    // print the result
+    cout << RESULT_HEADER << ret_val.x_left << SPLITTER << ret_val.x_right << SPLITTER << image.cols << SPLITTER << ret_val.thres << SPLITTER << ret_val.conf << endl; 
     	
     return 0;
 }
 
-coordinate detectObj ( Mat& img, CascadeClassifier& cascade, double scale, int display) {
+/* Detect the object */
+coordinate detectObj (Mat& img, CascadeClassifier& cascade, double scale, int display) {
 	double t = (double)cvGetTickCount(); // count the procesing time
 	
 	vector<Rect> detected_object; // detected object
@@ -155,12 +160,13 @@ coordinate detectObj ( Mat& img, CascadeClassifier& cascade, double scale, int d
     	
 	showImage(img, detected_object, scale, display);		// display the detection result
 
-    coordinate ret_val = {0, 0, 0};
+    coordinate ret_val = {0, 0, 0, 0};
     if ((int)detected_object.size() == 1) { // 1 return
 		vector<Rect>::const_iterator r = detected_object.begin();
 		ret_val.x_left = (int)(r->x * scale);
 		ret_val.x_right = (int)((r->x + r->width - 1) * scale);
-		ret_val.conf = calConfScore(img, detected_object);			// calculate conf score
+		ret_val.thres = min_neighbors;
+		ret_val.conf = calConfScore(smallImg, cascade, detected_object);			// calculate conf score
 	}
 	else if ((int)detected_object.size() > 1) { // error (more than one detected)
 		ret_val.x_left = ERROR;
@@ -170,6 +176,7 @@ coordinate detectObj ( Mat& img, CascadeClassifier& cascade, double scale, int d
     return ret_val;
 }
 
+/* Display the image with the detection result */
 void showImage (Mat& img, vector<Rect> detected_object, double scale, int display) {
 	if (display != 1) {
 		return;
@@ -205,6 +212,50 @@ void showImage (Mat& img, vector<Rect> detected_object, double scale, int displa
     return;
 }
 
-int calConfScore(Mat& img, vector<Rect> detected_object) {
-	return 0;
-};
+/* Calculate the confindence score */
+/* currently I just use round # as conf_score */
+int calConfScore(Mat& img, CascadeClassifier& cascade, vector<Rect> detected_object) {
+	cout << "Calculating conf score..." << endl;
+
+	if (detected_object.size() != 1)	// no object or more than one object
+		return 0;
+
+	// First round cropping 
+	vector<Rect>::const_iterator r = detected_object.begin();
+	cv::Rect croppingRec = getCroppingRec(img, (int)r->x, (int)r->y, (int)r->width, (int)r->height); // Setup a rectangle (x, y, width, height)
+	cv::Mat temp_img = img(croppingRec);	// get the cropped image
+
+	int round = 1;
+	int min_neighbors = 1;
+	while(true) {
+		vector<Rect> temp_obj;
+		cascade.detectMultiScale( temp_img, temp_obj, // object detection
+					1.1, min_neighbors, 			
+					0 | CV_HAAR_SCALE_IMAGE,
+					Size(30, 30) );
+
+		if (temp_obj.size() < 1)	// exit if no object is found
+			break;
+		else if (temp_obj.size() > 1) {
+			min_neighbors++;
+		}
+		else {				// crop the image
+			round++;
+			// cout << "Round " << round << " min_neighbors " << min_neighbors << endl; // for debugging ....
+			r = temp_obj.begin();
+			cv::Rect temp_croppingRec = getCroppingRec(temp_img, (int)r->x, (int)r->y, (int)r->width, (int)r->height); // Setup a rectangle (x, y, width, height)
+			temp_img = temp_img(temp_croppingRec);	// get the cropped image
+		}
+	}
+	return round;
+}
+
+cv::Rect getCroppingRec (Mat& img, int x, int y, int width, int height) {
+	int x_res = (x - MARGIN < 0) ? 0: (x - MARGIN);
+	int y_res = (y - MARGIN < 0) ? 0: (y - MARGIN);
+	int width_res = (x + width + MARGIN > img.cols) ? (img.cols - x_res - 1) : (x + width + MARGIN - x_res - 1); 
+	int height_res = (y + height + MARGIN > img.rows) ? (img.rows - y_res - 1) : (y + height + MARGIN - y_res - 1);
+	// cout << "[Rec] x:" << x_res << " y:" << y_res << " width_res:" << width_res << " height_res:" << height_res << endl; // for debugging...
+	// cout << "[Img] cols:" << img.cols << " rows:" << img.rows << endl; // for debugging...
+	return Rect(x_res, y_res, width_res, height_res);
+}
