@@ -31,5 +31,8 @@ Put "obj_detect.py" in the same path with the "support" folder. Then import the 
 	- If the program returns correctly, "res" will be like "logo_left/logo_right/image_width/conf_score".
 	- If something goes wrong, "res" will be "ERROR"
 
+##Define the confidence score
+In object detection, there is a threshold called "MIN_NEIGHBOR" which represents the similarity between the detected area and sample object. Moreover, I applied recursive image cropping to get the number of "cropping round", which can also be used to know if there is a real logo or not. In most cases, real logo will have higher round number while the false positive has less.
+
 ##Next step
 An confidence score will be given to help eliminating false positives.
