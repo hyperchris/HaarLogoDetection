@@ -28,6 +28,9 @@ MAX_X = 29		# max value of x-axis
 
 DATA_SIZE = 69	# size of good/error log dataset
 
+THRES_MIN = 1   # set the set range of threshold
+THRES_MAX = 20
+
 # generate log with min_neighbor and round_num, return the list of round_num
 def generate_log (logo_name, image_dir, show_image, max_round):
 	log_fd = open(image_dir.split("/")[-2] + "_log.txt", 'w')

@@ -26,17 +26,33 @@ Put "obj_detect.py" in the same path with the "support" folder. Then import the 
 **Sample:** In python, use:  
 	* res = get_result("walmart", "images/walmart/walmart.jpg", 1)
 
-- Parameter:  
+- Input parameters:  
 	- "walmart" is the name of logo that you want to detect
 	- "images/walmart/walmart.jpg" is the path of the image to process
 	- 1 means show the detection result; 0 means do not show the result (Displaying the result will block the get_result function and need PRESS_ANY_KEY to continue) 
 
-- The returned string will be stored in "res":
+- Returned string:
 	- If the program returns correctly, "res" will be like **"logo_left / logo_right / image_width / min_neighbor / conf_score"**.
+	- For "logo_left" and "logo_right", -1 means more than one object found; 0 means no object;
 	- If something goes wrong, "res" will be "ERROR"
 
 ##Define the confidence score
-In object detection, there is a score called "MIN_NEIGHBOR" which represents the similarity between the detected area and sample object. Moreover, I applied recursive image cropping to get the number of "cropping round", which can also be used to know if there is a real logo or not. In most cases, real logo will have higher round number while the false positive has less.
+In object detection, there is a score called "MIN_NEIGHBOR" which represents the similarity between the detected area and sample object. Moreover, I applied recursive image cropping to get the number of "cropping round", which can also be used to know if there is a real logo or not. In most cases, real logo will have higher round number while the false positive has less.  
+
+**Threshold of conf_score** To remove false positive cases, we need to ignore the results with confidence scores that are below a certain threshold. From the experiment, the relation between the threshold, FPR, and FNR is partially listed below. You can select a threshold according to your application scenario.
+			Threshold	FPR(%)		FNR(%)
+			10			15.9		13.0
+			11			15.9		14.4
+			12			15.9		14.4
+			13			14.4		14.4
+			14			13.0		14.4
+			15			11.5		15.9
+			16			11.5		15.9
+			17			10.1		18.8
+			18			8.6			18.8
+			19			8.6			20.2
+			20			5.7			21.7
+
 
 ##Next step
 An confidence score will be given to help eliminating false positives.
