@@ -18,13 +18,13 @@ Version: 2.0
 	- `plot_round_num/` has the images that show the distribution of round number with different margins
 
 ##Main function  
-Given image path and logo name, the "get_result" function in "obj_detect.py" will return the x-coordinate of the two boudaries of detected logo and the image width.
+Given image path and logo name, the "get_result" function in "obj_detect.py" will return the x-coordinate of the detected logo.
 
 ##How to use
-Put "obj_detect.py" in the same path with the "support" folder. Then import the python file and call "get_result" function.
+Put "obj_detect.py" in the same path with the "support" folder. Then import "obj_detect.py" into your code and call "get_result" function.
 
 **Sample:** In python, use:  
-	* res = get_result("walmart", "images/walmart/walmart.jpg", 1)
+	- $ res = get_result("walmart", "images/walmart/walmart.jpg", 1)
 
 - Input parameters:  
 	- "walmart" is the name of logo that you want to detect
@@ -32,14 +32,14 @@ Put "obj_detect.py" in the same path with the "support" folder. Then import the 
 	- 1 means show the detection result; 0 means do not show the result (Displaying the result will block the get_result function and need PRESS_ANY_KEY to continue) 
 
 - Returned string:
-	- If the program returns correctly, "res" will be like **"logo_left / logo_right / image_width / min_neighbor / conf_score"**.
+	- If the program returns correctly, "res" will be in the format like **"logo_left / logo_right / image_width / min_neighbor / conf_score"**.
 	- For "logo_left" and "logo_right", -1 means more than one object found; 0 means no object;
 	- If something goes wrong, "res" will be "ERROR"
 
 ##Define the confidence score
 In object detection, there is a score called "MIN_NEIGHBOR" which represents the similarity between the detected area and sample object. Moreover, I applied recursive image cropping to get the number of "cropping round", which can also be used to know if there is a real logo or not. In most cases, real logo will have higher round number while the false positive has less.  
 
-**Threshold of conf_score** To remove false positive cases, we need to ignore the results with confidence scores that are below a certain threshold. From the experiment, the relation between the threshold, FPR, and FNR is partially listed below. You can select a threshold according to your application scenario.
+**Threshold of conf_score** To remove false positive cases, we need to ignore the results with confidence scores smaller than a certain threshold. The relation between the threshold, FPR, and FNR is partially listed below. You can select a threshold according to your application scenario.
 * Threshold / FPR(%) / FNR(%)
 * 10 / 15.9 / 13.0
 * 11 / 15.9 / 14.4
@@ -53,6 +53,5 @@ In object detection, there is a score called "MIN_NEIGHBOR" which represents the
 * 19 / 8.6 / 20.2
 * 20 / 5.7 / 21.7
 
-
 ##Next step
-An confidence score will be given to help eliminating false positives.
+I am looking for better classifier to improve the overall accuracy
