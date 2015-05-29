@@ -31,7 +31,7 @@ using namespace cv;
 #define SPLITTER '/'
 #define RESULT_HEADER "RESULT: "
 #define ERROR_HEADER "ERROR: "
-#define MARGIN 25
+#define MARGIN 20 // this margin works best
 
 string cascadeName = "../cascade/subway.xml";
 
@@ -251,10 +251,10 @@ int calConfScore(Mat& img, CascadeClassifier& cascade, vector<Rect> detected_obj
 }
 
 cv::Rect getCroppingRec (Mat& img, int x, int y, int width, int height) {
-	int x_res = (x - MARGIN < 0) ? 0: (x - MARGIN);
-	int y_res = (y - MARGIN < 0) ? 0: (y - MARGIN);
-	int width_res = (x + width + MARGIN > img.cols) ? (img.cols - x_res - 1) : (x + width + MARGIN - x_res - 1); 
-	int height_res = (y + height + MARGIN > img.rows) ? (img.rows - y_res - 1) : (y + height + MARGIN - y_res - 1);
+	int x_res = (x - MARGIN < 0) ? 0: (x - MARGIN);	// 
+	int y_res = (y - MARGIN < 0) ? 0: (y - MARGIN);	// 
+	int width_res = (x + width + MARGIN > img.cols) ? (img.cols - x_res - 1) : (x + width + MARGIN - x_res - 1); 	// 
+	int height_res = (y + height + MARGIN > img.rows) ? (img.rows - y_res - 1) : (y + height + MARGIN - y_res - 1); // 
 	// cout << "[Rec] x:" << x_res << " y:" << y_res << " width_res:" << width_res << " height_res:" << height_res << endl; // for debugging...
 	// cout << "[Img] cols:" << img.cols << " rows:" << img.rows << endl; // for debugging...
 	return Rect(x_res, y_res, width_res, height_res);

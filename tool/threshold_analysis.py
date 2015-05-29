@@ -1,20 +1,32 @@
+'''
+ Create: 	05/28/2015
+ Modified:	05/29/2015
+ Author: 	Xiaochen Liu
+ 
+ Function: 	The code is used to automatically run the obj_detect.get_result to generate the detection log. It can also analyze the log file by plotting the histogram of round #.
+ 
+ Usage: 	Put this file in the same dir with "obj_detect.py" for running. Read the description of each function to decide which you should use
+'''
+
 import time, os, copy, sys, random,threading
-import obj_detect
+import obj_detect	# obj_detect
 import numpy as np
 import pylab as pl
 
+# dir that stores images
 GOOD_DIR = "/home/chris/Desktop/Share/LogoDetection/images/subway/good/"
 ERROR_DIR = "/home/chris/Desktop/Share/LogoDetection/images/subway/error/"
 
-GOOD_LOG = "/home/chris/Desktop/Share/LogoDetection/log/m25/good_log_m_25.txt"
-ERROR_LOG = "/home/chris/Desktop/Share/LogoDetection/log/m25/error_log_m_25.txt"
+# path where log file is stored
+GOOD_LOG = "/home/chris/Desktop/Share/LogoDetection/log/m20/good_log_m_20m.txt"
+ERROR_LOG = "/home/chris/Desktop/Share/LogoDetection/log/m20/error_log_m_20m.txt"
 
-SHOW_IMAGE = 0
+SHOW_IMAGE = 0  # 1 means show the detection result for each image
+				
+MAX_ROUND = 27	# round number larger than this will be recorded as MAX_ROUND
+MAX_X = 29		# max value of x-axis
 
-MAX_ROUND = 27
-MAX_X = 29
-
-DATA_SIZE = 69
+DATA_SIZE = 69	# size of good/error log dataset
 
 # generate log with min_neighbor and round_num, return the list of round_num
 def generate_log (logo_name, image_dir, show_image, max_round):
@@ -96,10 +108,6 @@ if __name__ == '__main__':
 	# generate logs
 	# good_round = generate_log("subway", GOOD_DIR, SHOW_IMAGE, MAX_ROUND)
 	# error_round = generate_log("subway", ERROR_DIR, SHOW_IMAGE, MAX_ROUND)
-
-	# mock test
-	# good_round = [1,2,3,4,5,6,7,7,7,7,9,9,9,1]
-	# error_round = [1,1,1,1,3,4,4,6,6,8,8,8,8,9]
 
 	# show histogram 
 	# plot_histogram("Distribution of Round Number", "Round number", "# of images", good_round, error_round, "good", "error", "green", "red", 0.5, 0, MAX_X, 1)
