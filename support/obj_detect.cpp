@@ -31,7 +31,7 @@ using namespace cv;
 #define SPLITTER '/'
 #define RESULT_HEADER "RESULT: "
 #define ERROR_HEADER "ERROR: "
-#define MARGIN 10
+#define MARGIN 25
 
 string cascadeName = "../cascade/subway.xml";
 
