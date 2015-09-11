@@ -7,6 +7,9 @@ Version: 2.0
 - OpenCV
 - Python
 
+##Classifier Training
+Follow [the link](http://abhishek4273.com/2014/03/16/traincascade-and-car-detection-using-opencv/) to get multiple Haar classifier cascades. 
+
 ##Code Layout
 - **obj_detect.py:** The function that you will use
 - **support/** The cpp code that supports the function of "obj_detect.py"
