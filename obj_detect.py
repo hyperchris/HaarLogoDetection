@@ -32,5 +32,6 @@ def get_result(logo_name, image_path, show_img):
 		return ERROR_MSG
 
 if __name__ == '__main__':
+	# should go through all imgs here...
 	res = get_result("subway", "images/test_img/subway/good/5.jpg", 1)
 	print "done"
