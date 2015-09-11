@@ -32,6 +32,7 @@ using namespace cv;
 #define RESULT_HEADER "RESULT: "
 #define ERROR_HEADER "ERROR: "
 #define MARGIN 20 // this margin works best
+#define MAX_SIZE 1440.0
 
 string cascadeName = "../cascade/subway.xml";
 
@@ -115,10 +116,12 @@ coordinate detectObj (Mat& img, CascadeClassifier& cascade, double scale, int di
 	double t = (double)cvGetTickCount(); // count the procesing time
 	
 	vector<Rect> detected_object; // detected object
+	if (img.cols > MAX_SIZE || img.rows > MAX_SIZE) // resize if the image is too big
+		scale = (img.cols/MAX_SIZE > img.rows/MAX_SIZE) ? (img.cols/MAX_SIZE) : (img.rows/MAX_SIZE);
 	Mat gray, smallImg(cvRound (img.rows / scale), cvRound(img.cols / scale), CV_8UC1);
 	
-	cvtColor( img, gray, CV_BGR2GRAY ); 
-	resize( gray, smallImg, smallImg.size(), 0, 0, INTER_LINEAR );
+	cvtColor(img, gray, CV_BGR2GRAY);  // change the image to grayscale
+	resize(gray, smallImg, smallImg.size(), 0, 0, INTER_LINEAR); 
 	equalizeHist( smallImg, smallImg );
 
 	int min_neighbors = 1;
@@ -203,8 +206,10 @@ void showImage (Mat& img, vector<Rect> detected_object, double scale, int displa
 			cvRound((r->y + r->height - 1) * scale)), color, 3, 8, 0);
 	}
     
-    cvNamedWindow("result", 1);
-	cv::imshow( "result", img ); // show the image
+	cvNamedWindow("result", 1);
+	Mat smallImg(cvRound (img.rows / scale), cvRound(img.cols / scale), CV_8UC1);
+	resize(img, smallImg, smallImg.size(), 0, 0, INTER_LINEAR); 
+	cv::imshow("result", smallImg); // show the image
 
 	waitKey(0);
     cvDestroyWindow("result");	// return

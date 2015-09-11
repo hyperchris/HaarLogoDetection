@@ -1,1 +1,1 @@
-/home/chris/Desktop/Share/LogoDetection/support/CMakeFiles/obj_detect.dir
+/Users/Chris/Dev/NSL/LogoDetection/support/CMakeFiles/obj_detect.dir
