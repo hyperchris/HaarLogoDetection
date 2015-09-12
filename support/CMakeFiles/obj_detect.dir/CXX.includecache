@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/Users/Chris/Dev/NSL/LogoDetection/support/obj_detect.cpp
+/home/chris/Lab/LogoDetection/support/obj_detect.cpp
 opencv2/objdetect/objdetect.hpp
-/Users/Chris/Dev/NSL/LogoDetection/support/opencv2/objdetect/objdetect.hpp
+/home/chris/Lab/LogoDetection/support/opencv2/objdetect/objdetect.hpp
 opencv2/highgui/highgui.hpp
-/Users/Chris/Dev/NSL/LogoDetection/support/opencv2/highgui/highgui.hpp
+/home/chris/Lab/LogoDetection/support/opencv2/highgui/highgui.hpp
 opencv2/imgproc/imgproc.hpp
-/Users/Chris/Dev/NSL/LogoDetection/support/opencv2/imgproc/imgproc.hpp
+/home/chris/Lab/LogoDetection/support/opencv2/imgproc/imgproc.hpp
 cctype
 -
 iostream

@@ -1,0 +1,10 @@
+5/3
+
+1	005_ChIJaU1LH1HGwoARr-aQDXZxtNQ_google_caddr.jpg	449/620/640/6/26
+1	005_ChIJaU1LH1HGwoARr-aQDXZxtNQ_google_paddr.jpg	432/576/640/4/29
+1	001_ChIJ39mf4lDGwoARkS_DfwJN01w_google_paddr.jpg	395/555/640/3/31
+0	000_4b777d5cf964a520ab9d2ee3_foursquare_caddr.jpg	418/615/640/13/20
+0	004_ChIJn-qmvB7MwoARxRin-62lRRk_google_caddr.jpg	345/424/640/1/20
+1	001_ChIJ39mf4lDGwoARkS_DfwJN01w_google_caddr.jpg	459/617/640/6/24
+0	000_ChIJHc0qzSi4woARHPOdS_yGaKQ_google_caddr.jpg	319/514/640/33/24
+1	000_4b777d5cf964a520ab9d2ee3_foursquare_paddr.jpg	118/306/640/121/24

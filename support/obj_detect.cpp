@@ -33,6 +33,7 @@ using namespace cv;
 #define ERROR_HEADER "ERROR: "
 #define MARGIN 20 // this margin works best
 #define MAX_SIZE 1440.0
+// #define THRES
 
 string cascadeName = "../cascade/subway.xml";
 
@@ -99,7 +100,7 @@ int main(int argc, const char** argv) {
 		cout << "SUCCESS: In image read" << endl;
 	}
 	else {
-		cout << ERROR_HEADER << "Couldn't no input image name" << endl;
+		cout << ERROR_HEADER << "\n ERROR: Couldn't no input image name" << endl;
 		return -1;
 	}
 	
@@ -160,8 +161,6 @@ coordinate detectObj (Mat& img, CascadeClassifier& cascade, double scale, int di
 	
     t = (double)cvGetTickCount() - t;
     printf("detection time = %g ms\n", t/((double)cvGetTickFrequency()*1000.)); // print processing time
-    	
-	showImage(img, detected_object, scale, display);		// display the detection result
 
     coordinate ret_val = {0, 0, 0, 0};
     if ((int)detected_object.size() == 1) { // 1 return
@@ -175,7 +174,10 @@ coordinate detectObj (Mat& img, CascadeClassifier& cascade, double scale, int di
 		ret_val.x_left = ERROR;
 		ret_val.x_right = ERROR;
 	}
-    		
+    
+    if (ret_val.conf >= 20)			// display the detection result
+		showImage(img, detected_object, scale, display);
+
     return ret_val;
 }
 

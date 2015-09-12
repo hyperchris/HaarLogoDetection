@@ -55,6 +55,8 @@ In object detection, there is a score called "MIN_NEIGHBOR" which represents the
 * 18 / 8.6 / 18.8
 * 19 / 8.6 / 20.2
 * 20 / 5.7 / 21.7
+(The data is tested among 64 images in 2015 May, new result will be updated shortly)
 
 ##Next step
-I am looking for better classifier to improve the overall accuracy
+- Use streetview images as negative dataset
+- Use other logos as neg dataset
