@@ -60,3 +60,6 @@ In object detection, there is a score called "MIN_NEIGHBOR" which represents the
 ##Next step
 - Use streetview images as negative dataset
 - Use other logos as neg dataset
+
+##Update
+- The algorithm now supports stop sign and speed limit sign detection.
