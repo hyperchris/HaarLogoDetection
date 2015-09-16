@@ -34,7 +34,7 @@ def dir_walk(rootDir, indent, dstDir):
         for fname in fileList: # file 
             if '.jpg' in fname or '.JPG' in fname:
             	img_num += 1
-                trim_img(dirName + '/' + fname, WIDTH, HEIGHT, PIECE, dstDir)
+                trim_img(dirName + fname, WIDTH, HEIGHT, PIECE, dstDir)
 	print 'Image number: ' + `img_num`
 
 if __name__ == '__main__':
