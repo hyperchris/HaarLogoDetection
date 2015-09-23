@@ -62,4 +62,4 @@ In object detection, there is a score called "MIN_NEIGHBOR" which represents the
 - Use other logos as neg dataset
 
 ##Update
-- The algorithm now supports stop sign and speed limit sign detection.
+- Stop sign detection added
