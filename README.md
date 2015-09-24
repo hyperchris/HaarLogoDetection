@@ -62,4 +62,4 @@ In object detection, there is a score called "MIN_NEIGHBOR" which represents the
 - Use other logos as neg dataset
 
 ##Update
-- Stop sign detection added
+- Chase cascade updated (with the trainining set of streetview as background)
